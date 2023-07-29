@@ -7,7 +7,6 @@ import { Component, Fragment } from "react";
 import { AgGridProperties } from "./Ag-grid-properties";
 import { ServersideDatasource } from "./ServersideDataSources.js";
 
-
 export class TableData extends Component {
   constructor() {
     super();
@@ -27,7 +26,9 @@ export class TableData extends Component {
         return { ...prev, gridApi: param };
       });
     }
-    param.api.setServerSideDatasource(ServersideDatasource());  //server side data
+    param.api.setServerSideDatasource(ServersideDatasource()); //server side data
+
+    // client side data
 
     // fetch("http://localhost:4000/comments")
     //   .then((res) => res.json())
@@ -67,7 +68,8 @@ export class TableData extends Component {
   };
   render() {
     const ag = new AgGridProperties(this.state.columnToggleState);
-    const { defaultColInfo, columnInfo } = ag;
+    console.log(">>>>>>>>>>>>>>>>");
+    const { columnInfo,defaultColInfo } = ag;
 
     return (
       <Fragment>
@@ -89,7 +91,7 @@ export class TableData extends Component {
           </div>
           <div
             className="ag-theme-alpine"
-            style={{ height: 400, border: "1px solid black" }}
+           
           >
             <AgGridReact
               // rowData={this.state.data}    static data
@@ -98,14 +100,19 @@ export class TableData extends Component {
               defaultColDef={defaultColInfo}
               onGridReady={this.onGridReadyApi} // dynamic data
               rowModelType="serverSide"
+              
+
+
+
               // enableBrowserTooltips={true}
               // tooltipShowDelay={{ tooltipShowDelay: 10 }}
               // rowSelection="multiple"
               // onSelectionChanged={this.onSelectionChanged}
               // rowMultiSelectWithClick={true}
               // isRowSelectable={this.onIsRowSelectable}
-              // pagination={true}
-              // paginationPageSize={10}
+              pagination={true}
+              paginationPageSize={10}
+              domLayout="autoHeight"
               //  paginationAutoPageSize={true}
             />
           </div>
